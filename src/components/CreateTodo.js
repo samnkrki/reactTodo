@@ -5,7 +5,8 @@ class CreateTodo extends Component{
     constructor(){
         super()
         this.state = {
-            todoText:''
+            text:'',
+            completed:false
         }
 
         this.onChangeTodoTextHandler = this.onChangeTodoTextHandler.bind(this)
@@ -13,7 +14,8 @@ class CreateTodo extends Component{
 
     onChangeTodoTextHandler(event){
         this.setState({
-            todoText: event.target.value
+            text: event.target.value,
+            completed:false
         })
     }
 
@@ -25,21 +27,21 @@ class CreateTodo extends Component{
                         type = "text" 
                         placeholder = "Add todo here" 
                         className = "form-control" 
-                        value = {this.state.todoText}
+                        value = {this.state.text}
                         onChange = {this.onChangeTodoTextHandler}
                         />
                     <button 
                     type = "button" 
                     className = "btn btn-danger"
-                    onClick = {()=>{this.setState({todoText:''})}}
+                    onClick = {()=>{this.setState({text:''})}}
                     >Cancel</button>
                     <button 
                     type = "button" 
                     className = "btn btn-success" 
                     style = {{margin:"25px"}}
                     onClick = {()=>{
-                        this.props.getTodosHandler(this.state.todoText);
-                        this.setState({todoText:''})
+                        this.props.getTodosHandler(this.state.text,this.state.completed);
+                        this.setState({text:''})
                         }
                     }
                     >Add</button>
