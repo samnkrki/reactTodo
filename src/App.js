@@ -25,10 +25,9 @@ class App extends Component {
    })
   }
 
-  deleteTodoHandler(itemToDelete){
-    console.log(itemToDelete)
+  deleteTodoHandler(idToDelete){
     let newArray = [...this.state.todosList]
-    newArray.splice(itemToDelete,1);
+    newArray.splice(idToDelete,1);
     this.setState({
       todosList:newArray
     })
@@ -37,10 +36,9 @@ class App extends Component {
     // })
   }
 
-  checkTodoHandler(itemToCheck){
-    //console.log(itemToCheck)
+  checkTodoHandler(idToCheck){
     let newArray = [...this.state.todosList]
-    newArray[itemToCheck]['completed'] = true;
+    newArray[idToCheck]['completed'] = true;
     this.setState({
       todosList:newArray
     })

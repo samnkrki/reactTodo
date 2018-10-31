@@ -4,25 +4,28 @@ class Table extends Component{
 render(){
     return(
         <div className = "container">
-            {
-               this.props.todos? this.props.todos.map((todo,index) =>
-                (<table>
+            <table>
                     <thead>
                         <tr>
                             <th scope="col">Todos</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
+            {
+               this.props.todos? this.props.todos.map((todo,index) =>
+                (
+                   
                     <tr key = {index}>
                         <td style={{
                         textDecoration: todo.completed ? "line-through" : "none"
-                        }}>{todo.text}{todo.completed === true ? "(completed)" : ""}</td>
-                        <td><span className = "fas fa-minus-circle" onClick = {()=>this.props.deleteTodo(index)}></span></td>
-                        <td><span className = "fas fa-check-circle" onClick = {()=>this.props.checkTodo(index)}></span></td>
+                        }}>{todo.text}</td>
+                        <td><span>{todo.completed === true ? "(completed)" : ""}</span></td>
+                        <td><span title = "Delete this todo" className = "fas fa-minus-circle" onClick = {()=>this.props.deleteTodo(index)}></span></td>
+                        <td><span title = "Mark as Completed" className = "fas fa-check-circle" onClick = {()=>this.props.checkTodo(index)}></span></td>
                     </tr>
-                    </tbody>
-                </table>
+                    
                 )
             ):(
                 <div className = "alert alert-danger">
@@ -30,6 +33,8 @@ render(){
                 </div>
                )
             }
+            </tbody>
+            </table>
         </div>
     )
 }
