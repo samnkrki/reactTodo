@@ -1,54 +1,40 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
+import { connect } from 'react-redux'
+import { addTodo } from '../actions/actionCreators'
+import {bindActionCreators} from 'redux'
 
-class CreateTodo extends Component{
-
-    constructor(){
-        super()
+class CreateTodo extends Component {
+    constructor(props){
+        super(props)
         this.state = {
-            text:'',
-            completed:false
+            todotext: '',
         }
-
-        this.onChangeTodoTextHandler = this.onChangeTodoTextHandler.bind(this)
+        this.onChangeTodoText = this.onChangeTodoText.bind(this)
     }
 
-    onChangeTodoTextHandler(event){
+    onChangeTodoText(e){
         this.setState({
-            text: event.target.value,
-            completed:false
+            todotext: e.target.value
         })
     }
 
     render(){
-        return(
-            <div className="form-group row">
-                <div className="col-sm-10">
-                    <input 
-                        type = "text" 
-                        placeholder = "Add todo here" 
-                        className = "form-control" 
-                        value = {this.state.text}
-                        onChange = {this.onChangeTodoTextHandler}
-                        />
-                    <button 
-                    type = "button" 
-                    className = "btn btn-danger"
-                    onClick = {()=>{this.setState({text:''})}}
-                    >Cancel</button>
-                    <button 
-                    type = "button" 
-                    className = "btn btn-success" 
-                    style = {{margin:"25px"}}
-                    onClick = {()=>{
-                        this.props.getTodosHandler(this.state.text,this.state.completed);
-                        this.setState({text:''})
-                        }
-                    }
-                    >Add</button>
-                </div>
-            </div>
-        )
+        return (
+           <div className="form-group row">
+              <div className="col-sm-10">
+                 <input onChange={this.onChangeTodoText} value={this.state.todotext} type="text" className="form-control" id="inputEmail3" placeholder="add todo here"/>
+                   <button type="button" onClick={ () => this.setState({ todotext: '' }) } style={{marginTop: "25px", marginRight: "15px"}} className="btn btn-danger">Cancel</button>
+                   <button type="button" onClick={() =>{ this.props.addTodo(this.state.todotext); this.setState({ todotext: '' }) } } style={{marginTop: "25px"}} className="btn btn-success">Add Todo</button>
+              </div>
+          </div>
+        );
     }
 }
 
-export default CreateTodo
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        addTodo
+    }, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(CreateTodo)
